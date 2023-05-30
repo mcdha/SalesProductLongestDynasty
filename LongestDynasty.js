@@ -1,72 +1,89 @@
-function longestDynasty(dynastyReign) {
+const dynastyReign = [
+    {
+        name: "San Dynasty",
+        year: "MXLI",
+    },
+    {
+        name: "Viloria Dynasty",
+        year: "MCCCIIII",
+    },
+    {
+        name: "Tan Dynasty",
+        year: "MCCCXCVIII",
+    },
+    {
+        name: "Bon Dynasty",
+        year: "MCDXLV",
+    },
+    {
+        name: "Maiko Dynasty",
+        year: "MDCLXIV",
+    },
+    {
+        name: "Paul Dynasty",
+        year: "MCMXLIX",
+    },
+    {
+        name: "Andre Dynasty",
+        year: "MMXICX",
+    },
+];
+
+
+const longestDynasty = () => {
     if (dynastyReign.length === 0) {
-      return "No Data";
+        return "No Data";
     }
-  
-    let longestDuration = 0;
+
+    let longestReign = 0;
     let longestDynastyName = "";
-  
-    for (const [name, romanNumeral] of dynastyReign) {
-      const endYear = convertYear(romanNumeral);
-      if (endYear === "Invalid") {
-        continue;
-      }
-  
-      const duration = endYear - 1000 + 1;
-  
-      if (duration > longestDuration) {
-        longestDuration = duration;
-        longestDynastyName = name;
-      }
-    }
-  
+
+    dynastyReign.forEach((currentDynasty) => {
+        const endYear = convertYear(currentDynasty.year);
+
+        if (endYear === "Invalid") {
+            return;
+        }
+
+    const reignDuration = endYear - 1000;
+
+        if (reignDuration > longestReign) {
+            longestReign = reignDuration;
+            longestDynastyName = currentDynasty.name;
+        }
+    });
+
     return longestDynastyName;
-  }
-  
-  function convertYear(romanNumeral) {
-    const numeralValues = {
-      M: 1000,
-      CM: 900,
-      D: 500,
-      CD: 400,
-      C: 100,
-      XC: 90,
-      L: 50,
-      XL: 40,
-      X: 10,
-      IX: 9,
-      V: 5,
-      IV: 4,
-      I: 1,
+};
+
+
+const convertYear = (romanYear) => {
+    const romanNumerals = {
+        M: 1000,
+        D: 500,
+        C: 100,
+        L: 50,
+        X: 10,
+        V: 5,
+        I: 1,
     };
-  
+
+    const regex = /^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
+    if (!regex.test(romanYear)) {
+        return "Invalid";
+    }
+
     let year = 0;
-    let numeral = romanNumeral;
-  
-    for (const [numeralKey, numeralValue] of Object.entries(numeralValues)) {
-      while (numeral.startsWith(numeralKey)) {
-        year += numeralValue;
-        numeral = numeral.slice(numeralKey.length);
-      }
+    for (let i = 0; i < romanYear.length; i++) {
+        const currentSymbol = romanYear[i];
+        const nextSymbol = romanYear[i + 1];
+            if (romanNumerals[currentSymbol] < romanNumerals[nextSymbol]) {
+                year -= romanNumerals[currentSymbol];
+            } else {
+                year += romanNumerals[currentSymbol];
+            }
     }
-  
-    if (numeral.length > 0) {
-      return "Invalid";
-    }
-  
     return year;
-  }
-  
-  // Test code
-  const dynastyReign = [
-    ["San Dynasty", "MXLI"],
-    ["Viloria Dynasty", "MCCCIIII"],
-    ["Tan Dynasty", "MCCCXCVIII"],
-    ["Bon Dynasty", "MCDXLV"],
-    ["Maiko Dynasty", "MDCLXIV"],
-    ["Andre Dynasty", "MCMXLIX"],
-    ["Paul Dynasty", "MMMXICX"]
-  ];
-  
-  const longestDynastyName = longestDynasty(dynastyReign);
-  console.log(longestDynastyName);
+};
+
+console.log("Longest reigning dynasty:", longestDynasty());
