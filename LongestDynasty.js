@@ -1,11 +1,11 @@
 let dynastyReign = [
-    { name: "San Dynasty", year: "MXLIA",},
-    { name: "Viloria Dynasty", year: "MCCCIIIIA",},
-    { name: "Tan Dynasty", year: "MCCCXCVIIIA",},
-    { name: "Bon Dynasty", year: "MCDXLVA",},
-    { name: "Maiko Dynasty", year: "MDCLXIVA",},
-    { name: "Paul Dynasty", year: "MCMXLIXA",},
-    { name: "Andre Dynasty", year: "MMMXICXA", },
+    // { name: "San Dynasty", year: "MXLI",},
+    // { name: "Viloria Dynasty", year: "MCCCIIII",},
+    // { name: "Tan Dynasty", year: "MCCCXCVIII",},
+    // { name: "Bon Dynasty", year: "MCDXLV",},
+    // { name: "Maiko Dynasty", year: "MDCLXIV",},
+    // { name: "Paul Dynasty", year: "MCMXLIX",},
+    // { name: "Andre Dynasty", year: "MMMXICX", },
 ];
 
 function longestDynasty()  {
@@ -20,7 +20,7 @@ function longestDynasty()  {
         let endYear = convertYear(currentDynasty.year);
 
         if (endYear === "Invalid") {
-            return longestReign;
+            return "Invalid";
         }
 
     let reignDuration = endYear - 1000;
@@ -59,4 +59,7 @@ function convertYear(romanYear){
     return year;
 };
 
+
 console.log("Longest reigning dynasty is:", longestDynasty());
+
+
