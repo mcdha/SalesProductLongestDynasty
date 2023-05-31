@@ -1,36 +1,14 @@
-const dynastyReign = [
-    {
-        name: "San Dynasty",
-        year: "MXLI",
-    },
-    {
-        name: "Viloria Dynasty",
-        year: "MCCCIIII",
-    },
-    {
-        name: "Tan Dynasty",
-        year: "MCCCXCVIII",
-    },
-    {
-        name: "Bon Dynasty",
-        year: "MCDXLV",
-    },
-    {
-        name: "Maiko Dynasty",
-        year: "MDCLXIV",
-    },
-    {
-        name: "Paul Dynasty",
-        year: "MCMXLIX",
-    },
-    {
-        name: "Andre Dynasty",
-        year: "MMXICX",
-    },
+let dynastyReign = [
+    { name: "San Dynasty", year: "MXLIA",},
+    { name: "Viloria Dynasty", year: "MCCCIIIIA",},
+    { name: "Tan Dynasty", year: "MCCCXCVIIIA",},
+    { name: "Bon Dynasty", year: "MCDXLVA",},
+    { name: "Maiko Dynasty", year: "MDCLXIVA",},
+    { name: "Paul Dynasty", year: "MCMXLIXA",},
+    { name: "Andre Dynasty", year: "MMMXICXA", },
 ];
 
-
-const longestDynasty = () => {
+function longestDynasty()  {
     if (dynastyReign.length === 0) {
         return "No Data";
     }
@@ -39,13 +17,13 @@ const longestDynasty = () => {
     let longestDynastyName = "";
 
     dynastyReign.forEach((currentDynasty) => {
-        const endYear = convertYear(currentDynasty.year);
+        let endYear = convertYear(currentDynasty.year);
 
         if (endYear === "Invalid") {
-            return;
+            return longestReign;
         }
 
-    const reignDuration = endYear - 1000;
+    let reignDuration = endYear - 1000;
 
         if (reignDuration > longestReign) {
             longestReign = reignDuration;
@@ -57,7 +35,7 @@ const longestDynasty = () => {
 };
 
 
-const convertYear = (romanYear) => {
+function convertYear(romanYear){
     const romanNumerals = {
         M: 1000,
         D: 500,
@@ -67,11 +45,6 @@ const convertYear = (romanYear) => {
         V: 5,
         I: 1,
     };
-
-    const regex = /^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
-    if (!regex.test(romanYear)) {
-        return "Invalid";
-    }
 
     let year = 0;
     for (let i = 0; i < romanYear.length; i++) {
@@ -86,4 +59,4 @@ const convertYear = (romanYear) => {
     return year;
 };
 
-console.log("Longest reigning dynasty:", longestDynasty());
+console.log("Longest reigning dynasty is:", longestDynasty());
